@@ -11,9 +11,12 @@ import {
 import { Link } from 'react-router-dom'
 
 const FlightCard = ({ flight }) => {
+  const linkRaw = flight.flight_number.toString().concat(flight.mission_name)
+  const link = linkRaw.replace(/[/ ]/g, '').toLowerCase()
+
   return (
     <Grid item xs={6} lg={4}>
-      <Card>
+      <Card elevation={5} sx={{ bgColor: 'primary' }}>
         <CardMedia
           component="img"
           height="150"
@@ -32,14 +35,14 @@ const FlightCard = ({ flight }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" size="small" sx={{ m: 'auto' }}>
-            <Link
-              to={`/flight/${flight.flight_number}${flight.mission_name}`}
-              style={{ color: 'white', textDecoration: 'none' }}
-            >
+          <Link
+            to={link}
+            style={{ color: 'white', textDecoration: 'none', margin: 'auto' }}
+          >
+            <Button variant="contained" size="small">
               More Details
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </Grid>

@@ -1,6 +1,7 @@
 import React from 'react'
 import MyAppBar from './components/MyAppBar'
 import { CssBaseline, Container } from '@mui/material'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import HomePage from './components/HomePage'
@@ -11,16 +12,33 @@ const getFlights = async (step) => {
   const response = await axios.get(
     `https://api.spacexdata.com/v3/launches?offset=${step}&limit=20`
   )
-  console.log('FLIGHTS', response.data)
-  console.log('STEP', step)
+
   return response.data
 }
+
+const themeLight = createTheme({})
+
+const themeDark = createTheme({
+  palette: {
+    primary: {
+      main: '#003839'
+    },
+    background: {
+      default: '#008385',
+      paper: '#005152'
+    },
+    text: {
+      primary: '#ffffff'
+    }
+  }
+})
 
 const App = () => {
   const [flights, setFlights] = useState([])
   const [filter, setFilter] = useState('')
   const [isFetching, setIsFetching] = useState(false)
   const [step, setStep] = useState(0)
+  const [light, setLight] = useState(true)
 
   const handleScroll = () => {
     if (
@@ -32,7 +50,6 @@ const App = () => {
 
     setIsFetching(true)
     setStep((previousState) => previousState + 20)
-    console.log('Fetching more...', step, isFetching)
   }
 
   useEffect(() => {
@@ -64,18 +81,20 @@ const App = () => {
 
   return (
     <Container disableGutters={true} maxWidth={false}>
-      <CssBaseline />
-      <MyAppBar />
-      <Routes>
-        <Route path='/' element={
-          <HomePage
-            filteredFlights={filteredFlights}
-            filter={filter}
-            setFilter={setFilter}
-          />
-        } />
-        <Route path='/flight/:id' element={<FlightPage flights={filteredFlights} />} />
-      </Routes>
+      <ThemeProvider theme={light ? themeLight : themeDark}>
+        <CssBaseline />
+        <MyAppBar light={light} setLight={setLight} />
+        <Routes>
+          <Route path='/:id' element={<FlightPage flights={filteredFlights} />} />
+          <Route path='/' element={
+            <HomePage
+              filteredFlights={filteredFlights}
+              filter={filter}
+              setFilter={setFilter}
+            />
+          } />
+        </Routes>
+      </ThemeProvider>
     </Container>
   )
 }

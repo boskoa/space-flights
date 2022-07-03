@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-const MyAppBar = () => {
+const MyAppBar = ({ light, setLight }) => {
   return (
     <AppBar position="static">
       <Toolbar sx={{ bgcolor: 'text.secondary' }}>
@@ -26,7 +26,7 @@ const MyAppBar = () => {
             </Link>
           </Typography>
           <FormGroup>
-            <FormControlLabel control={<Switch />} label="Dark theme" />
+            <FormControlLabel onClick={() => setLight(!light)} control={<Switch />} label="Dark theme" />
           </FormGroup>
         </Stack>
       </Toolbar>
