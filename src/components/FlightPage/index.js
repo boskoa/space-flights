@@ -28,7 +28,7 @@ const FlightPage = ({ flights }) => {
           sx={{ fontWeight: 'bold' }}
           color={flight.launch_success ? '#33cc33': '#dc2222'}
         >
-          Launch success: {flight.launch_success.toString()}
+          Launch success: {flight.launch_success && flight.launch_success.toString()}
         </Typography>
       </Stack>
     </Container>

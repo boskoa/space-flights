@@ -17,7 +17,7 @@ const HomePage = ({ filteredFlights, filter, setFilter }) => {
       </Box>
       <Grid container spacing={12} sx={{ padding: 5 }}>
         {filteredFlights.map((f) => (
-          <FlightCard key={Math.floor(Math.random() * 100000)} flight={f} />
+          <FlightCard key={Math.floor(Math.random() * 10000000)} flight={f} />
         ))}
       </Grid>
     </Container>
