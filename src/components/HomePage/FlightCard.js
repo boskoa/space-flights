@@ -15,7 +15,7 @@ const FlightCard = ({ flight }) => {
   const link = linkRaw.replace(/[/ ]/g, '').toLowerCase()
 
   return (
-    <Grid item xs={6} lg={4}>
+    <Grid item xs={12} sm={6} md={4} lg={4}>
       <Card elevation={5} sx={{ bgColor: 'primary' }}>
         <CardMedia
           component="img"
